@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Welcome to the Agroforestry Program</h2>
+<p>Use this platform to manage field data for agroforestry programs.</p>
+{% if is_logged_in %}
+    <p>You are logged in successfully as {{ username }}. To change the user, kindly logout first.</p>
+{% else %}
+<a href="/login"><button>Login</button></a>
+{% endif %}
+{% endblock %}
+
+

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Farmer Data{% endblock %}
+
+{% block content %}
+<section>
+    <h2>Submit Farmer Data</h2>
+
+    <!-- Display Success or Error Message -->
+    {% if success %}
+    <div style="background-color: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; border-radius: 8px; margin-bottom: 20px;">
+        <strong>Success:</strong> Submission successful!
+        <a href="/submit" style="text-decoration: none;">
+            <button style="padding: 8px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Add Another Submission</button>
+        </a>
+    </div>
+    {% elif error %}
+    <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border: 1px solid #f5c6cb; border-radius: 8px; margin-bottom: 20px;">
+        <strong>Error:</strong> {{ error }}
+    </div>
+    {% endif %}
+
+    <!-- Form for Submission -->
+    <form method="POST" action="/submit" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 15px;">
+        <div>
+            <label for="farmerName">Farmer Name:</label>
+            <input type="text" id="farmerName" name="farmerName" placeholder="Enter farmer's name" required>
+        </div>
+
+        <div>
+            <label for="contactNumber">Contact Number:</label>
+            <input type="text" id="contactNumber" name="contactNumber" placeholder="Enter contact number" required>
+        </div>
+
+        <div>
+            <label for="plotLocation">Plot Location:</label>
+            <input type="text" id="plotLocation" name="plotLocation" placeholder="Enter plot location" required>
+        </div>
+
+    
+        <div>
+            <label for="fieldPhoto">Field Photo:</label>
+            <input type="file" id="fieldPhoto" name="fieldPhoto" accept="image/*" required>
+        </div>
+
+
+        
+
+
+        <div id="tree-section">
+            <h3>Tree Species</h3>
+            <div style="margin-bottom: 10px;">
+                <label for="treeName[]">Tree Species:</label>
+                <input type="text" name="treeName[]" placeholder="Enter tree species" required>
+                <label for="treeCount[]">Count:</label>
+                <input type="number" name="treeCount[]" placeholder="Enter count" required>
+            </div>
+        </div>
+        <button type="button" onclick="addTreeInput()" style="padding: 8px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Add More Trees</button>
+
+        <button type="submit" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+    </form>
+</section>
+
+<script>
+    function addTreeInput() {
+        const section = document.getElementById('tree-section');
+        const newTreeInput = document.createElement('div');
+        newTreeInput.style.marginBottom = "10px";
+        newTreeInput.innerHTML = `
+            <label for="treeName[]">Tree Species:</label>
+            <input type="text" name="treeName[]" placeholder="Enter tree species" required>
+            <label for="treeCount[]">Count:</label>
+            <input type="number" name="treeCount[]" placeholder="Enter count" required>
+        `;
+        section.appendChild(newTreeInput);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+{% if role == 'manager_e' %}
+    <div class="action-buttons">
+        <a href="{{ url_for('submit') }}"><button>Add Data</button></a>
+        <button id="deleteButton">Delete Selected</button>
+    </div>
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Location</th>
+            <th>Photo</th>
+            <th>Added By</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for farmer in farmers %}
+        <tr>
+            <td>{{ farmer.name }}</td>
+            <td>{{ farmer.contact_number }}</td>
+            <td>{{ farmer.plot_location }}</td>
+            <td>
+                <img src="{{ url_for('fetch_image', farmer_id=farmer.id) }}" width="100">
+
+            </td>
+            <td>{{ farmer.added_by }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<h3>Tree Species</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Farmer Name</th>
+            <th>Species Name</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tree in tree_species %}
+        <tr>
+            <td>{{ tree.farmer_name }}</td>
+            <td>{{ tree.species_name }}</td>
+            <td>{{ tree.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
